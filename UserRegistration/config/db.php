@@ -12,7 +12,7 @@ require 'constants.php'; //use to contain sensitive data
 $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME) or die ('Database error: ' . $conn->connect_error);
 
 // sql to create table
-$employee = "CREATE TABLE employee (
+$employees = "CREATE TABLE employees (
     id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY, 
     username VARCHAR20) NOT NULL , 
     email VARCHAR(50) NOT NULL UNIQUE, 
