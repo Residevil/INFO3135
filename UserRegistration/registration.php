@@ -27,7 +27,6 @@
                     <select name="usertype">
                         <option value=""></option>
                         <option value="Administrator"> Administrator </option>
-                        <option value="Herbalist"> Herbalist </option>
                         <option value="RegularUser"> Regular User </option>
                     </select>
                 </div>
