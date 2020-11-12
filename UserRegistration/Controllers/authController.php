@@ -9,7 +9,6 @@
 session_start();
 
 require_once 'config/db.php';
-require_once 'emailController.php';
 
 $username = "";
 $email = "";
@@ -80,16 +79,7 @@ if (isset($_POST['register-btn'])) {
             $_SESSION['email'] = $email;
             $_SESSION['verified'] = $verified;
             $_SESSION['usertype'] = $usertype;
-            //sendVerificationEmail($email, $token);
-//            $to = $_SESSION['email'];
-//            $subject = "Email Verification";
-//            $message = "<a href='http://localhost/UserRegistration/index.php?token='$token'>Register Account</a>";
-//            $headers = "From: alexauieong@hotmail.com \r\n";
-//            $headers .= "MIME-Version: 1.0"."\r\n";
-//            $headers .= "Content-type:text/html;charset=UTF-8"."\r\n";
-//            
-//            mail($to, $subject, $message, $headers);
-            
+           
             //flash message
             $_SESSION['message'] = "Login successful";
             $_SESSION['alert-class'] = "alert-success";
