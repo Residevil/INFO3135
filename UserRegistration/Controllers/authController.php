@@ -50,7 +50,7 @@ if (isset($_POST['register-btn'])) {
     }
 
     //unique email validation
-    $emailQuery = "SELECT * FROM users WHERE email=? LIMIT 1";
+    $emailQuery = "SELECT * FROM employees WHERE email=? LIMIT 1";
     $stmt = $conn->prepare($emailQuery);
     $stmt->bind_param('s', $email);
     $stmt->execute();
