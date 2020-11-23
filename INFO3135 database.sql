@@ -15,7 +15,7 @@ CREATE TABLE employee (
     employee_type_id INT(11),
     address_id INT(11),
     PRIMARY KEY (employee_id),
-    FOREIGN KEY (employee_typ-ide) REFERENCE employee type (employee_type_id),
+    FOREIGN KEY (employee_type_id) REFERENCE employee type (employee_type_id),
     FOREIGN KEY (address_id) REFERENCE addresses(address_id)
 );
 
