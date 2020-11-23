@@ -1,87 +1,89 @@
-CREATE TABLE addresses (
-    address_id INT(11) NOT NULL AUTO INCREMENT,
-    street_number INT(11),
-    street_name VARCHAR(50) NOT NULL,
-    unit_number INT(11),
-    city VARCHAR(20) NOT NULL,
-    province VARCHAR(20) NOT NULL,
-    postal_code VARCHAR(11) NOT NULL,
-    PRIMARY KEY (address_id)
+CREATE TABLE Addresses (
+    AddressID INT(11) NOT NULL AUTO_INCREMENT,
+    SteetNumber INT(11),
+    StreetName VARCHAR(50) NOT NULL,
+    UnitNumber INT(11),
+    City VARCHAR(20) NOT NULL,
+    Province VARCHAR(20) NOT NULL,
+    PostalCode VARCHAR(11) NOT NULL,
+    PRIMARY KEY(AddressID)
 );
 
-CREATE TABLE employee (
-    employee_id INT(11) NOT NULL AUTO INCREMENT,
-    name VARCHAR(50) NOT NULL,
-    employee_type_id INT(11),
-    address_id INT(11),
-    PRIMARY KEY (employee_id),
-    FOREIGN KEY (employee_type_id) REFERENCE employee type (employee_type_id),
-    FOREIGN KEY (address_id) REFERENCE addresses(address_id)
+CREATE TABLE EmployeeType (
+    EmployeeTypeID INT(11) NOT NULL,
+    Name VARCHAR(50) NOT NULL,
+    Description VARCHAR(255) NOT NULL,
+    PRIMARY KEY(EmployeeTypeID)
 );
 
-CREATE TABLE employee type (
-    employee_type_id INT(11) NOT NULL AUTO INCREMENT,
-    name VARCHAR(50) NOT NULL,
-    description VARCHAR(255), NOT NULL,
-    PRIMARY KEY (employee_type_id)
+CREATE TABLE Employee (
+    EmployeeID INT(11) NOT NULL AUTO_INCREMENT,
+    Name VARCHAR(50) NOT NULL,
+    EmployeeTypeID INT(11),
+    AddressID INT(11),	
+    PRIMARY KEY(EmployeeID),
+    FOREIGN KEY(EmployeeTypeID) REFERENCES EmployeeType(EmployeeTypeID),
+    FOREIGN KEY(AddressID) REFERENCES Addresses(AddressID)
 );
 
-CREATE TABLE violator (
-    violator_id INT(11) NOT NULL AUTO INCREMENT,
-    driver_license VARCHAR(50) NOT NULL,
-    name VARCHAR(50) NOT NULL,
-    address_id INT(11),
-    PRIMARY KEY (violator_id),
-    FOREIGN KEY (address_id) REFERENCE addresses(address_id)
+CREATE TABLE Violators (
+    ViolatorID INT(11) NOT NULL AUTO_INCREMENT,
+    DriversLicenseNumber VARCHAR(50) NOT NULL,
+    Name VARCHAR(50) NOT NULL,
+    AddressID INT(11),
+    PRIMARY KEY(ViolatorID),
+    FOREIGN KEY(AddressID) REFERENCES Addresses(AddressID)
 );
 
-CREATE TABLE violation (
-    violation_id INT(11) NOT NULL AUTO INCREMENT,
-    violation_number INT(50) NOT NULL,
-    violation_date DATE(20) NOT NULL,
-    fine_amount FLOAT(11) NOT NULL,
-    fine_due_date DATE(20) NOT NULL,
-    violator_id INT(11),
-    violation_type_id INT(11),
-    license_plate VARCHAR(11),
-    PRIMARY KEY (violation_id),
-    FOREIGN KEY (violator_id) REFERENCE violator type (violator_id),
-    FOREIGN KEY (violation_type_id) REFERENCE violation type (violation_type_id),
-    FOREIGN KEY (license_plate) REFERENCE vehicle(license_plate)
+CREATE TABLE VehicleType (
+    VehicleTypeID INT(11) NOT NULL,
+    Name VARCHAR(50) NOT NULL,
+    Description VARCHAR(255) NOT NULL,
+    PRIMARY KEY(VehicleTypeID)
 );
 
-CREATE TABLE violation type (
-    violation_type_id INT(11) NOT NULL AUTO INCREMENT,
-    name VARCHAR(50) NOT NULL,
-    description VARCHAR(255), NOT NULL,
-    PRIMARY KEY (violation_type_id)
+CREATE TABLE Manufacturers (
+    ManufacturerCode INT(50) NOT NULL,
+    ManufacturerName VARCHAR(50) NOT NULL,
+    PRIMARY KEY(ManufacturerCode)
 );
 
-CREATE TABLE vehicle (
-    license_plate INT(11) NOT NULL,
-    name VARCHAR(20) NOT NULL,
-    colour VARCHAR(20) NOT NULL,
-    vehicle_type_id INT(11),
-    PRIMARY KEY (license_plate),
-    FOREIGN KEY (vehicle_type_id) REFERENCE vehicle type (vehicle_type_id)
+CREATE TABLE Vehicles (
+    LicensePlateNumber VARCHAR(11) NOT NULL,
+    Name VARCHAR(20) NOT NULL,
+    Colour VARCHAR(20) NOT NULL,
+    VehicleTypeID INT(11),
+    ManufacturerCode INT(50),
+    PRIMARY KEY(LicensePlateNumber),
+    FOREIGN KEY(VehicleTypeID) REFERENCES VehicleType(VehicleTypeID),
+    FOREIGN KEY(ManufacturerCode) REFERENCES Manufacturers(ManufacturerCode)
 );
 
-CREATE TABLE vehicle type (
-    vehicle_type_id INT(11) NOT NULL,
-    name VARCHAR(50) NOT NULL,
-    description VARCHAR(255) NOT NULL,
-    PRIMARY KEY (vehicle_type_id)
+CREATE TABLE ViolationType (
+    ViolationTypeID INT(11) NOT NULL,
+    Name VARCHAR(50) NOT NULL,
+    Description VARCHAR(255)NOT NULL,
+    PRIMARY KEY(ViolationTypeID)
 );
 
-CREATE TABLE vehicle manufacturers (
-    manufacturer_code INT(50) NOT NULL,
-    manufacturer_name VARCHAR(50) NOT NULL,
-    PRIMARY KEY (manufacturer_code)
+CREATE TABLE Violations (
+    ViolationID INT(11) NOT NULL AUTO_INCREMENT,
+    ViolationNumber INT(50) NOT NULL,
+    ViolationDate DATE NOT NULL,
+    FineAmount FLOAT(11) NOT NULL,
+    FineDueDate DATE NOT NULL,
+    ViolatorID INT(11),
+    ViolationTypeID INT(11),
+    LicensePlateNumber VARCHAR(11),
+    PRIMARY KEY(ViolationID),
+    FOREIGN KEY(ViolationTypeID) REFERENCES ViolationType(ViolationTypeID),
+    FOREIGN KEY(ViolatorID) REFERENCES Violators(ViolatorID),
+    FOREIGN KEY(LicensePlateNumber) REFERENCES Vehicles(LicensePlateNumber)
 );
 
-CREATE TABLE payment methods (
-    payment_method_code INT(11) NOT NULL,
-    name VARCHAR(50), NOT NULL,
-    description VARCHAR(255) NOT NULL,
-    PRIMARY KEY (payment_method_code)
+CREATE TABLE PaymentMethod (
+    PaymentMethodCode INT(11) NOT NULL,
+    Name VARCHAR(50) NOT NULL,
+    Description VARCHAR(255) NOT NULL,
+    PRIMARY KEY(PaymentMethodCode)
 );
