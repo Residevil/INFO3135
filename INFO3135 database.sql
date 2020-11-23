@@ -1,8 +1,8 @@
 CREATE TABLE addresses (
     address_id INT(11) NOT NULL AUTO INCREMENT,
-    street_number INT(11) NOT NULL,
+    street_number INT(11),
     street_name VARCHAR(50) NOT NULL,
-    unit_number INT(11) NOT NULL,
+    unit_number INT(11),
     city VARCHAR(20) NOT NULL,
     province VARCHAR(20) NOT NULL,
     postal_code VARCHAR(11) NOT NULL,
