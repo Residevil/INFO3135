@@ -1,6 +1,6 @@
 CREATE TABLE Addresses (
     AddressID INT(11) NOT NULL AUTO_INCREMENT,
-    SteetNumber INT(11),
+    StreetNumber INT(11),
     StreetName VARCHAR(50) NOT NULL,
     UnitNumber INT(11),
     City VARCHAR(20) NOT NULL,
