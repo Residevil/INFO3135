@@ -37,6 +37,7 @@ CREATE TABLE violator (
 
 CREATE TABLE violation (
     violation_id INT(11) NOT NULL AUTO INCREMENT,
+    violation_number INT(50) NOT NULL,
     violation_date DATE(20),
     fine_amount FLOAT(11),
     violator_id INT(11),
