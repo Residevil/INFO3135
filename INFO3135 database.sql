@@ -28,7 +28,7 @@ CREATE TABLE employee type (
 
 CREATE TABLE violator (
     violator_id INT(11) NOT NULL AUTO INCREMENT,
-    driver_license INT(20) NOT NULL,
+    driver_license VARCHAR(50) NOT NULL,
     name VARCHAR(50) NOT NULL,
     address_id INT(11),
     PRIMARY KEY (violator_id),
