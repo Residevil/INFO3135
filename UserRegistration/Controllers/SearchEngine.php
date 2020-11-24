@@ -2,18 +2,6 @@
 
 require_once 'config/db.php';
 
-$output = '';
-$hidden = 'hidden';
-$ViolationID = '';
-$ViolationNumber = '';
-$ViolationTypeID = '';
-$ViolationType = '';
-$vt = '';
-$ViolationDate = '';
-$LicensePlateNumber = '';
-$FineAmount = '';
-$FineDueDate = '';
-
 if(isset($_POST['search-btn'])) {
     $search = $_POST['search'];
 
