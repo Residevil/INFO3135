@@ -19,6 +19,8 @@ CREATE TABLE EmployeeType (
 CREATE TABLE Employee (
     EmployeeID INT(11) NOT NULL AUTO_INCREMENT,
     Name VARCHAR(50) NOT NULL,
+    Email VARCHAR(255),
+    Password VARCHAR(255),
     EmployeeTypeID INT(11),
     AddressID INT(11),	
     PRIMARY KEY(EmployeeID),
