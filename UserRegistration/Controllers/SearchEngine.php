@@ -1,58 +1,44 @@
-<?php require_once 'Controllers/authController.php'; ?>
-<!DOCTYPE html>
-<html lang="en">
-<head> 
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="style.css">
-    <title>Register</title>
-</head>
-<body>
-    <div class="container">
-    <div class="row">
-        <div class="col-md-4 offset-md-4 form-div">
-            <form action="registration.php" method="post">
-                <h3 class="text-center">Register</h3>
-                
-                <?php if(count($errors) > 0) : ?>
-                    <div class="alert alert-danger">
-                        <?php foreach($errors as $error): ?>
-                        <li><?php echo $error; ?></li>
-                        <?php endforeach; ?>
-                    </div>
-                <?php endif; ?>
-                
-                <div class="form-group">
-                    <label for="employee type">Employee type</label>
-                    <select name="employee_type" placeholder="">
-                        <option value="Administrator"> Administrator </option>
-                        <option value="RegularEmployee"> Regular Employee </option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label for="username">Username</label>
-                    <input type="text" name="username" value="<?php echo $username; ?>" class="form-control form-control-lg">
-                </div>
-                <div class="form-group">
-                    <label for="email">email</label>
-                    <input type="email" name="email" value="<?php echo $email; ?>" class="form-control form-control-lg">
-                </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" name="password" class="form-control form-control-lg">
-                </div>
-                <div class="form-group">
-                    <label for="passwordConf">Confirm Password</label>
-                    <input type="password" name="passwordConf" class="form-control form-control-lg">
-                </div>
-                <div>
-                    <button type="submit" name="register-btn" class="btn btn-primary btn-block btn-lg">Register</button>
-                </div>
-                <p class="text-center">Already a member?<a href="login.php">Login here</a></p>
-            </form>
-        </div>
-    </div>
-</div>
-</body>
-</html>
+<?php
+
+require_once 'config/db.php';
+
+$output = '';
+$hidden = 'hidden';
+$ViolationID = '';
+$ViolationNumber = '';
+$ViolationTypeID = '';
+$ViolationType = '';
+$vt = '';
+$ViolationDate = '';
+$LicensePlateNumber = '';
+$FineAmount = '';
+$FineDueDate = '';
+
+if(isset($_POST['search-btn'])) {
+    $search = $_POST['search'];
+
+    $query = "SELECT * FROM Violations WHERE ViolationNumber = '". $search ."' OR LicensePlateNumber = '".$search."'";
+    $result = $conn->query($query) or die($conn->error);
+    $count = $result->num_rows;
+    if($count == 0 || empty($search)){
+        $output = 'There are zero results';
+    } else{
+        $hidden = '';
+        while($row = $result->fetch_array()) {
+            $ViolationID = $row['ViolationID'];
+            $ViolationNumber = $row['ViolationNumber'];
+            $ViolationTypeID = $row['ViolationTypeID'];
+            $sql = "SELECT Violations.ViolationTypeID, ViolationType.ViolationTypeID, ViolationType.Name FROM Violations RIGHT JOIN ViolationType ON Violations.ViolationTypeID = ViolationType.ViolationTypeID";
+            $vt = $conn->query($sql) or die($conn->error);
+            while ($v = $vt->fetch_array()) {
+                $ViolationType = $v['Name'];
+            }
+            $ViolationDate = $row['ViolationDate'];
+            $LicensePlateNumber = $row['LicensePlateNumber'];	
+            $FineAmount = $row['FineAmount']; 
+            $FineDueDate = $row['FineDueDate'];
+        }
+    }
+}
+
+?>
