@@ -11,5 +11,17 @@ define('DB_USER', 'root');
 define('DB_PASS', '');
 define('DB_NAME', 'INFO3135');
 
+$output = '';
+$hidden = 'hidden';
+$ViolationID = '';
+$ViolationNumber = '';
+$ViolationTypeID = '';
+$ViolationType = '';
+$vt = '';
+$ViolationDate = '';
+$LicensePlateNumber = '';
+$FineAmount = '';
+$FineDueDate = '';
+
 
 ?>
