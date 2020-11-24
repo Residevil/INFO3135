@@ -21,10 +21,10 @@
                 for($s = 0; $s <= $i; $s++)
                 {
                     if($pieces[$s] != "")
-                    echo "/" . $pieces[$s]; 
+                        echo "/" . $pieces[$s]; 
                 }
             
-                echo '">' . '  /  ' . $pieces[$i] . '</a></td>';
+                echo '">' . '  /  ' . urldecode($pieces[$i]) . '</a></td>';
             }
          }
          echo "</tr></table>";

@@ -2,6 +2,8 @@
 <html>
 	<header>
 		<title>XYZ Traffic Enforcement</title>
+		
+		<h1>Staff</h1>
 	
 		<?php
         //get url
@@ -24,7 +26,7 @@
                     echo "/" . $pieces[$s]; 
                 }
             
-                echo '">' . '  /  ' . $pieces[$i] . '</a></td>';
+                echo '">' . '  /  ' . urldecode($pieces[$i]) . '</a></td>';
             }
          }
          echo "</tr></table>";
