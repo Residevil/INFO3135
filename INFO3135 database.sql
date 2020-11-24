@@ -21,6 +21,7 @@ CREATE TABLE Employee (
     Name VARCHAR(50) NOT NULL,
 <<<<<<< Updated upstream
 =======
+    Username VARCHAR(11),
     Email VARCHAR(255),
     Password VARCHAR(255),
 >>>>>>> Stashed changes
