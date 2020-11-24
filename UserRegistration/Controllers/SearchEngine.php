@@ -1,23 +1,58 @@
-<?php
-
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-//Simple search
-
-if(isset($_GET['search_btn'])) {
-    $search = $_GET['search'];
-    $herbQuery = "SELECT name FROM herbs WHERE name = $search";
-    $stmt = $conn->prepare($herbQuery);
-    $stmt->bind_param('s', $search);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    if($result->num_rows > 0) {
-        echo $result;
-    }
-}
-
-?>
+<?php require_once 'Controllers/authController.php'; ?>
+<!DOCTYPE html>
+<html lang="en">
+<head> 
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <title>Register</title>
+</head>
+<body>
+    <div class="container">
+    <div class="row">
+        <div class="col-md-4 offset-md-4 form-div">
+            <form action="registration.php" method="post">
+                <h3 class="text-center">Register</h3>
+                
+                <?php if(count($errors) > 0) : ?>
+                    <div class="alert alert-danger">
+                        <?php foreach($errors as $error): ?>
+                        <li><?php echo $error; ?></li>
+                        <?php endforeach; ?>
+                    </div>
+                <?php endif; ?>
+                
+                <div class="form-group">
+                    <label for="employee type">Employee type</label>
+                    <select name="employee_type" placeholder="">
+                        <option value="Administrator"> Administrator </option>
+                        <option value="RegularEmployee"> Regular Employee </option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" name="username" value="<?php echo $username; ?>" class="form-control form-control-lg">
+                </div>
+                <div class="form-group">
+                    <label for="email">email</label>
+                    <input type="email" name="email" value="<?php echo $email; ?>" class="form-control form-control-lg">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" name="password" class="form-control form-control-lg">
+                </div>
+                <div class="form-group">
+                    <label for="passwordConf">Confirm Password</label>
+                    <input type="password" name="passwordConf" class="form-control form-control-lg">
+                </div>
+                <div>
+                    <button type="submit" name="register-btn" class="btn btn-primary btn-block btn-lg">Register</button>
+                </div>
+                <p class="text-center">Already a member?<a href="login.php">Login here</a></p>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
