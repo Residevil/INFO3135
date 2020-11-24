@@ -6,7 +6,6 @@ require_once 'config/db.php';
 // verify the user using token
 if(isset($_GET['token'])) {
     $token = $_GET['token'];
-    verifyEmail($token);
 }
 
 if(!isset($_SESSION['id'])) {
