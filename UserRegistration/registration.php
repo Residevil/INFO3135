@@ -27,10 +27,10 @@
                 
                 <div class="form-group">
                     <label for="employee type">Employee type: </label>
-                    <select name="employeetype" placeholder="">
+                    <select name="EmployeeType" placeholder="">
                         <option value=""></option>
                         <option value="Administrator"> Administrator </option>
-                        <option value="RegularEmployee"> Regular Employee </option>
+                        <option value="Regular Employee"> Regular Employee </option>
                     </select>
                 </div>
 
@@ -40,9 +40,9 @@
                 </div>
                 <div class="form-group">
                     <label for="address">Address: </label>
-                    <input type="text" name="address" value="<?php echo $address; ?>" placeholder= "e.g. 9040 Lexile Rd"class="form-control form-control-lg" required>
-                    <input type="text" name="city" value="<?php echo $city; ?>" placeholder="e.g. Toronto" class="form-control form-control-lg" required>
-                    <select name="province" placeholder="Select a Province or Territory">
+                    <input type="text" name="Address" value="<?php echo $Address; ?>" placeholder= "e.g. 9040 Lexile Rd"class="form-control form-control-lg" required>
+                    <input type="text" name="City" value="<?php echo $City; ?>" placeholder="e.g. Toronto" class="form-control form-control-lg" required>
+                    <select name="Province" placeholder="Select a Province or Territory">
                         <option value="">Select a Province</option>
                         <option value="AB"> Alberta </option>
                         <option value="BC"> British Columbia </option>
@@ -58,23 +58,23 @@
                         <option value="SK"> Saskatchewan </option>
                         <option value="YT"> Yukon </option>
                     </select>
-                    <input type="text" name="postalcode" value="<?php echo $postalcode; ?>" placeholder="e.g. V9E 4C2" class="form-control form-control-lg" required>
+                    <input type="text" name="PostalCode" value="<?php echo $PostalCode; ?>" placeholder="e.g. V9E 4C2" class="form-control form-control-lg" required>
                 </div>
                 <div class="form-group">
                     <label for="username">Username: </label>
-                    <input type="text" name="username" value="<?php echo $username; ?>" class="form-control form-control-lg" required>
+                    <input type="text" name="Username" value="<?php echo $Username; ?>" class="form-control form-control-lg" required>
                 </div>
                 <div class="form-group">
-                    <label for="email">email:</label>
-                    <input type="email" name="email" value="<?php echo $email; ?>" class="form-control form-control-lg" required>
+                    <label for="email">Email:</label>
+                    <input type="email" name="Email" value="<?php echo $Email; ?>" class="form-control form-control-lg" required>
                 </div>
                 <div class="form-group">
                     <label for="password">Password: </label>
-                    <input type="password" name="password" class="form-control form-control-lg" required>
+                    <input type="password" name="Password" class="form-control form-control-lg" required>
                 </div>
                 <div class="form-group">
                     <label for="passwordConf">Confirm Password: </label>
-                    <input type="password" name="passwordConf" class="form-control form-control-lg" required>
+                    <input type="password" name="PasswordConf" class="form-control form-control-lg" required>
                 </div>
                 <div>
                     <button type="submit" name="register-btn" class="btn btn-primary btn-block btn-lg">Register</button>
