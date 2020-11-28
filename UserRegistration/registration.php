@@ -8,11 +8,14 @@
     <title>Register</title>
 </head>
 <body>
+    <div>
+        <a href="index.php"><button name="index" style="float: right;" class="btn btn-primary btn-lg">Homepage</button></a>
+    </div>
     <div class="container">
     <div class="row">
         <div class="col-md-4 offset-md-4 form-div">
             <form action="registration.php" method="post">
-                <h3 class="text-center">Register</h3>
+                <h3 class="text-center">Employee Registration</h3>
                 
                 <?php if(count($errors) > 0) : ?>
                     <div class="alert alert-danger">
@@ -23,29 +26,55 @@
                 <?php endif; ?>
                 
                 <div class="form-group">
-                    <label for="usertype">User type</label>
-                    <select name="usertype">
+                    <label for="employee type">Employee type: </label>
+                    <select name="employeetype" placeholder="">
                         <option value=""></option>
                         <option value="Administrator"> Administrator </option>
-                        <option value="RegularUser"> Regular User </option>
+                        <option value="RegularEmployee"> Regular Employee </option>
                     </select>
                 </div>
-                
+
                 <div class="form-group">
-                    <label for="username">Username</label>
-                    <input type="text" name="username" value="<?php echo $username; ?>" class="form-control form-control-lg">
+                    <label for="name">Name: </label>
+                    <input type="text" name="name" value="<?php echo $name; ?>" class="form-control form-control-lg" required>
                 </div>
                 <div class="form-group">
-                    <label for="email">email</label>
-                    <input type="email" name="email" value="<?php echo $email; ?>" class="form-control form-control-lg">
+                    <label for="address">Address: </label>
+                    <input type="text" name="address" value="<?php echo $address; ?>" placeholder= "e.g. 9040 Lexile Rd"class="form-control form-control-lg" required>
+                    <input type="text" name="city" value="<?php echo $city; ?>" placeholder="e.g. Toronto" class="form-control form-control-lg" required>
+                    <select name="province" placeholder="Select a Province or Territory">
+                        <option value="">Select a Province</option>
+                        <option value="AB"> Alberta </option>
+                        <option value="BC"> British Columbia </option>
+                        <option value="MB"> Manitoba </option>
+                        <option value="NB"> New Brunswick </option>
+                        <option value="NL"> Newfoundland and labrador </option>
+                        <option value="NS"> Nova Scotia </option>
+                        <option value="NT"> Northwest Territories </option>
+                        <option value="NU"> Nunavut </option>
+                        <option value="ON"> Ontario </option>
+                        <option value="PE"> Prince Edward Island </option>
+                        <option value="QC"> Quebec </option>
+                        <option value="SK"> Saskatchewan </option>
+                        <option value="YT"> Yukon </option>
+                    </select>
+                    <input type="text" name="postalcode" value="<?php echo $postalcode; ?>" placeholder="e.g. V9E 4C2" class="form-control form-control-lg" required>
                 </div>
                 <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" name="password" class="form-control form-control-lg">
+                    <label for="username">Username: </label>
+                    <input type="text" name="username" value="<?php echo $username; ?>" class="form-control form-control-lg" required>
                 </div>
                 <div class="form-group">
-                    <label for="passwordConf">Confirm Password</label>
-                    <input type="password" name="passwordConf" class="form-control form-control-lg">
+                    <label for="email">email:</label>
+                    <input type="email" name="email" value="<?php echo $email; ?>" class="form-control form-control-lg" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password: </label>
+                    <input type="password" name="password" class="form-control form-control-lg" required>
+                </div>
+                <div class="form-group">
+                    <label for="passwordConf">Confirm Password: </label>
+                    <input type="password" name="passwordConf" class="form-control form-control-lg" required>
                 </div>
                 <div>
                     <button type="submit" name="register-btn" class="btn btn-primary btn-block btn-lg">Register</button>
