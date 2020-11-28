@@ -13,15 +13,31 @@ define('DB_NAME', 'INFO3135');
 
 $output = '';
 $hidden = 'hidden';
+$edit = 'hidden';
 $ViolationID = '';
 $ViolationNumber = '';
 $ViolationTypeID = '';
 $ViolationType = '';
 $vt = '';
 $ViolationDate = '';
+$Violator = '';
+$ViolatorID = '';
+$DriverLicense = '';
 $LicensePlateNumber = '';
+$VehicleName = '';
+$VehicleColour = '';
+$VehicleType = '';
+$VehicleTypeID = '';
+$ManufacturerName = '';
+$ManufacturerCode = '';
 $FineAmount = '';
 $FineDueDate = '';
 
+$Address='';
+$City='';
+$Province = '';
+$Postalcode='';
+
+$Log = '';
 
 ?>
