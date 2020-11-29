@@ -9,7 +9,7 @@ if(isset($_SESSION['EmployeeID'])) {
     $log = 'logout';
 }
 else {
-    $_SESSION['username'] = '';
+    $_SESSION['Username'] = '';
     $log = 'employee login';
 }
 
@@ -43,16 +43,6 @@ if(isset($_POST['edit_delete'])) {
                     <?php 
                         echo $_SESSION['message']; 
                         unset($_SESSION['message']);
-                        unset($_SESSION['alert-class']);
-                    ?>
-                </div>
-            <?php endif ?>
-
-            <?php if(isset($_SESSION['update'])) : ?>
-                <div class="alert <?php echo $_SESSION['alert-class']; ?>">
-                    <?php 
-                        echo $_SESSION['update']; 
-                        unset($_SESSION['update']);
                         unset($_SESSION['alert-class']);
                     ?>
                 </div>
@@ -96,13 +86,13 @@ if(isset($_POST['edit_delete'])) {
                 } ?>
                 <?php if((empty($hidden))) : ?>
                 <tbody> 
-                        <tr id="<?php echo $_SESSION['violation_id']; ?>">
-                        <td><?php echo $_SESSION['violation_number']; ?></td>
-                        <td><?php echo $_SESSION['violation_type']; ?></td>
-                        <td><?php echo $_SESSION['violation_date']; ?></td> 		   
-                        <td><?php echo $_SESSION['license_plate']; ?></td>   
-                        <td><?php echo $_SESSION['fine_amount']; ?></td>   
-                        <td><?php echo $_SESSION['fine_due_date']; ?></td>
+                        <tr id="<?php echo $_SESSION['ViolationID']; ?>">
+                        <td><?php echo $_SESSION['ViolationNumber']; ?></td>
+                        <td><?php echo $_SESSION['ViolationType']; ?></td>
+                        <td><?php echo $_SESSION['ViolationDate']; ?></td> 		   
+                        <td><?php echo $_SESSION['LicensePlateNumber']; ?></td>   
+                        <td><?php echo $_SESSION['FineAmount']; ?></td>   
+                        <td><?php echo $_SESSION['fineDueDate']; ?></td>
                         <td><button type="submit" name="payment-btn">Pay</button></td>   
                         </tr>
                 </tbody>
