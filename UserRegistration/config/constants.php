@@ -16,9 +16,11 @@ $Username = "";
 $Email = "";
 $errors = array();
 
+$log = '';
 $output = '';
 $hidden = 'hidden';
 $edit = 'hidden';
+
 $ViolationID = '';
 $ViolationNumber = '';
 $ViolationTypeID = '';
@@ -43,6 +45,6 @@ $City='';
 $Province = '';
 $Postalcode='';
 
-$Log = '';
+
 
 ?>
