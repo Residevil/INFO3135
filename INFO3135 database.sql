@@ -75,9 +75,9 @@ CREATE TABLE ViolationType (
 CREATE TABLE Violations (
     ViolationID INT(11) NOT NULL AUTO_INCREMENT,
     ViolationNumber INT(50) NOT NULL,
-    ViolationDate DATE NOT NULL,
-    FineAmount FLOAT(11) NOT NULL,
-    FineDueDate DATE NOT NULL,
+    ViolationDate VARCHAR NOT NULL,
+    FineAmount VARCHAR(11) NOT NULL,
+    FineDueDate VARCHAR NOT NULL,
     ViolatorID INT(11),
     ViolationTypeID INT(11),
     LicensePlateNumber VARCHAR(11),
