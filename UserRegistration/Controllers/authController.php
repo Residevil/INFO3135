@@ -9,144 +9,144 @@
 session_start();
 
 require_once 'config/db.php';
+require_once 'config/constants.php';
 
-$name = "";
-$username = "";
-$email = "";
-$errors = array();
 
 //if user clicks on the register button
-
 if (isset($_POST['register-btn'])) {
-    $employeetype = $_POST['employeetype'];
-    $name = $_POST['name'];
-    $username = $_POST['username'];
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-    $passwordConf = $_POST['passwordConf'];
-    $address = $_POST['address'];
-    $city = $_POST['city'];
-    $province = $_POST['province'];
-    $postalcode = $_POST['postalcode'];
+    $EmployeeType = $_POST['EmployeeType'];
+    $Name = $_POST['Name'];
+    $Username = $_POST['Username'];
+    $Email = $_POST['Email'];
+    $Password = $_POST['Password'];
+    $PasswordConf = $_POST['PasswordConf'];
+    $Address = $_POST['Address'];
+    $City = $_POST['City'];
+    $Province = $_POST['Province'];
+    $PostalCode = $_POST['PostalCode'];
 
 
     //validation
     
-    if(empty($employeetype)) {
-        $errors['employeetype'] = "Employee Type required";
+    if(empty($EmployeeType)) {
+        $errors['EmployeeType'] = "Employee Type required";
     }
 
-    if(empty($name)) {
-        $errors['name'] = "Name required";
+    if(empty($Name)) {
+        $errors['Name'] = "Name required";
     }
 
-    if(empty($username)) {
-        $errors['username'] = "Username required";
+    if(empty($Username)) {
+        $errors['Username'] = "Username required";
     }
 
-    if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $errors['email'] = "Email address is invalid";
+    if(!filter_var($Email, FILTER_VALIDATE_EMAIL)) {
+        $errors['Email'] = "Email address is invalid";
     }
 
-    if(empty($email)) {
-        $errors['email'] = "Email required";
+    if(empty($Email)) {
+        $errors['Email'] = "Email required";
     }
 
-    if(empty($password)) {
-        $errors['password'] = "Password required";
+    if(empty($Password)) {
+        $errors['Password'] = "Password required";
+    }
+    
+    if(empty($PasswordConf)) {
+        $errors['PasswordConf'] = "Password Confirm required";
     }
 
     if($password != $passwordConf) {
-        $errors['password'] = "Two password do not match";
+        $errors['Password'] = "Two password do not match";
     }
 
     //unique email validation
-    $emailQuery = "SELECT * FROM employee WHERE email=? LIMIT 1";
+    $emailQuery = "SELECT * FROM Employee WHERE Email=? LIMIT 1";
     $stmt = $conn->prepare($emailQuery);
-    $stmt->bind_param('s', $email);
+    $stmt->bind_param('s', $Email);
     $stmt->execute();
     $result = $stmt->get_result();
     $userCount = $result->num_rows;
     
     if($userCount > 0) {
-        $errors['email'] = "Email already exists";
+        $errors['Email'] = "Email already exists";
     }
 
-    if($employeetype === "Administrator") {
-        $employee_type_id = 1;
+    if($EmployeeType === "Administrator") {
+        $EmployeeTypeID = 1;
     } else {
-        $employee_type_id = 2;
+        $EmployeeTypeID = 2;
     }
 
     //clarify province name
-    switch($province) {
+    switch($Province) {
         case "AB":
-            $province = "Alberta";
+            $Province = "Alberta";
         break;
         case "BC":
-            $province = "British Columbia";
+            $Province = "British Columbia";
         break;
         case "MB":
-            $province = "Manitoba";
+            $Province = "Manitoba";
         break;
         case "NB":
-            $province = "New Brunswick";
+            $Province = "New Brunswick";
         break;
         case "NL":
-            $province = "Newfoundland and Labrador";
+            $Province = "Newfoundland and Labrador";
         break;
         case "NS":
-            $province = "Nova Scotia";
+            $Province = "Nova Scotia";
         break;
         case "NT":
-            $province = "Northwest Territories";
+            $Province = "Northwest Territories";
         break;
         case "NU":
-            $province = "Nunavut";
+            $Province = "Nunavut";
         break;
         case "ON":
-            $province = "Ontario";
+            $Province = "Ontario";
         break;
         case "PE":
-            $province = "Prince Edward Island";
+            $Province = "Prince Edward Island";
         break;
         case "QC":
-            $province = "Quebec";
+            $Province = "Quebec";
         break;
         case "SK":
-            $province = "Saskatchewan";
+            $Province = "Saskatchewan";
         break;
         case "YT":
-            $province = "Yukon";
+            $Province = "Yukon";
         break;
     }
     
     if(count($errors) === 0) {
-        $password = password_hash($password, PASSWORD_DEFAULT);
+        $Password = password_hash($Password, PASSWORD_DEFAULT);
         // $token = bin2hex(random_bytes(50));
         // $verified = false;
 
 
-        $add = "INSERT INTO addresses (street_name, city, Province, postal_code)
+        $add = "INSERT INTO Addresses (StreetName, City, Province, Postal_Code)
                 VALUES (?, ?, ?, ?)";
         $stmt0 = $conn->prepare($add);
-        $stmt0->bind_param('ssss', $address, $city, $province, $postalcode);
+        $stmt0->bind_param('ssss', $Address, $City, $Province, $PostalCode);
         $stmt0->execute();
-        $address_id=$conn->insert_id;
-        $sql = "INSERT INTO employee (name, username, email, password, employee_type_id, address_id)
+        $AddressID=$conn->insert_id;
+        $sql = "INSERT INTO Employee (Name, Username, Email, Oassword, EmployeeTypeID, AddressID)
                 VALUES (?, ?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param('ssssii', $name, $username, $email, $password, $employee_type_id, $address_id);
+        $stmt->bind_param('ssssii', $Name, $Username, $Email, $Password, $EmployeeTypeID, $AddressID);
 
 
         if($stmt->execute()) {
             //login user
-            $edit = 'visible';
-            $employee_id = $conn->insert_id;
-            $_SESSION['employee_id'] = $employee_id;
-            $_SESSION['username'] = $username;
-            $_SESSION['email'] = $email;
-            $_SESSION['employee_type_id'] = $employee_type_id;
+            $Edit = 'visible';
+            $EmployeeID = $conn->insert_id;
+            $_SESSION['EmployeeID'] = $EmployeeID;
+            $_SESSION['Username'] = $Username;
+            $_SESSION['Email'] = $Email;
+            $_SESSION['EmployeeTypeID'] = $EmployeeTypeID;
            
             //flash message
             $_SESSION['message'] = "Login successful";
@@ -165,33 +165,33 @@ if (isset($_POST['register-btn'])) {
 //if user clicks the login button
 
 if (isset($_POST['login-btn'])) {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+    $Username = $_POST['Username'];
+    $Password = $_POST['Password'];
 
     //validation
-    if(empty($username)) {
-        $errors['username'] = "Username required"; 
+    if(empty($Username)) {
+        $errors['Username'] = "Username required"; 
     }
 
-    if(empty($password)) {
-        $errors['password'] = "Password required";
+    if(empty($Password)) {
+        $errors['Password'] = "Password required";
     }
 
     if(count($errors) === 0) {
-        $sql = "SELECT * FROM employee WHERE email=? OR username=? LIMIT 1";
+        $sql = "SELECT * FROM Employee WHERE Email=? OR Username=? LIMIT 1";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param('ss', $username, $username);
+        $stmt->bind_param('ss', $Username, $Username);
         $stmt->execute();
         $result = $stmt->get_result();
         $user = $result->fetch_assoc();
 
-        if(password_verify($password, $user['password'])) {
+        if(password_verify($Password, $user['Password'])) {
             // correct password, allow login
-            $_SESSION['employee_id'] = $user['employee_id'];
-            $_SESSION['username'] = $user['username'];
-            $_SESSION['email'] = $user['email'];
-            $_SESSION['employee_type_id'] = $user['employee_type_id'];
-            $_SESSION['address_id'] = $user['address_id'];
+            $_SESSION['EmployeeID'] = $user['EmployeeID'];
+            $_SESSION['Username'] = $user['Username'];
+            $_SESSION['Email'] = $user['Email'];
+            $_SESSION['EmployeTypeID'] = $user['EmployeeTypeID'];
+            $_SESSION['AddressID'] = $user['AddressID'];
             //flash message
             $_SESSION['message'] = "Login successful";
             $_SESSION['alert-class'] = "alert-success";
@@ -209,11 +209,11 @@ if (isset($_POST['login-btn'])) {
 //logout user
 if(isset($_GET['logout'])) {
     session_destroy();
-    unset($_SESSION['employee_id']);
-    unset($_SESSION['username']);
-    unset($_SESSION['email']);
-    unset($_SESSION['employee_type_id']);
-    unset($_SESSION['address_id']);    
+    unset($_SESSION['EmployeeID']);
+    unset($_SESSION['Username']);
+    unset($_SESSION['Email']);
+    unset($_SESSION['EmployeeTypeID']);
+    unset($_SESSION['AddressID']);    
     header('location: login.php');
     exit();
 }
