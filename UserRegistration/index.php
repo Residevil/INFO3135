@@ -3,13 +3,8 @@ require_once 'Controllers/authController.php';
 require_once 'Controllers/SearchEngine.php';
 require_once 'config/db.php';
 
-// verify the user using token
-if(isset($_GET['token'])) {
-    $token = $_GET['token'];
-    verifyEmail($token);
-}
 
-if(isset($_SESSION['Employee_id'])) {
+if(isset($_SESSION['EmployeeID'])) {
     $edit = 'visible';
     $log = 'logout';
 }
