@@ -6,12 +6,26 @@ require_once 'config/db.php';
 // verify the user using token
 if(isset($_GET['token'])) {
     $token = $_GET['token'];
+    verifyEmail($token);
 }
 
-if(!isset($_SESSION['id'])) {
-    header('location: login.php');
-    exit();
+if(isset($_SESSION['Employee_id'])) {
+    $edit = 'visible';
+    $log = 'logout';
 }
+else {
+    $_SESSION['username'] = '';
+    $log = 'employee login';
+}
+
+if(isset($_POST['add'])) {
+    header('location: add.php');
+}
+
+if(isset($_POST['edit_delete'])) {
+    header('location: edit_delete.php');
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -38,10 +52,27 @@ if(!isset($_SESSION['id'])) {
                     ?>
                 </div>
             <?php endif ?>
+
+            <?php if(isset($_SESSION['update'])) : ?>
+                <div class="alert <?php echo $_SESSION['alert-class']; ?>">
+                    <?php 
+                        echo $_SESSION['update']; 
+                        unset($_SESSION['update']);
+                        unset($_SESSION['alert-class']);
+                    ?>
+                </div>
+            <?php endif ?>
             
-            <h3> Welcome, <?php echo $_SESSION['username']; ?> ! </h3>
-            
-            <a href="index.php?logout=1" class="logout">Logout</a>
+            <h3> Welcome <?php echo $_SESSION['username']; ?></h3>
+
+            <form action="index.php" method="post">
+                <div>
+                    <button name="edit_delete" style="float: right; visibility: <?php echo $edit; ?>;">Edit/Delete ticket</button>
+                    <button name="add" style="float: right; visibility: <?php echo $edit; ?>;">Add ticket</button>          
+                </div>
+            </form>
+  
+            <a href="index.php?logout=1" class="logout"><?php echo $log; ?></a>
             
             <div class="alert alert-warning">
                 Search for ticket by Violation Number or License Plate:
@@ -50,10 +81,10 @@ if(!isset($_SESSION['id'])) {
             <form action="index.php" method="post">
                 <div>
                     <input type="text" name="search" class="form-control form-control-lg">
-                    <button type="submit" name="search-btn">Search</button>
+                    <button type="search" name="search-btn">Search</button>
                 </div>
             </form>
-            <table id="ViolationTable" class="table table-striped" <?php echo $hidden; ?>>
+            <table id="ViolationTable" class="table table-striped" <?php echo $table; ?>>
                 <th>
                     <tr>
                         <th>Violation Number</th>
@@ -65,18 +96,18 @@ if(!isset($_SESSION['id'])) {
                         <th></th>
                     </tr>
                 </th>
-                <?php if(!empty($hidden)) {
+                <?php if(!empty($table)) {
                     echo $output;
                 } ?>
                 <?php if((empty($hidden))) : ?>
                 <tbody> 
-                        <tr id="<?php echo $ViolationID; ?>">
-                        <td><?php echo $ViolationNumber; ?></td>
-                        <td><?php echo $ViolationType; ?></td>
-                        <td><?php echo $ViolationDate; ?></td> 		   
-                        <td><?php echo $LicensePlateNumber; ?></td>   
-                        <td><?php echo $FineAmount; ?></td>   
-                        <td><?php echo $FineDueDate; ?></td>
+                        <tr id="<?php echo $_SESSION['violation_id']; ?>">
+                        <td><?php echo $_SESSION['violation_number']; ?></td>
+                        <td><?php echo $_SESSION['violation_type']; ?></td>
+                        <td><?php echo $_SESSION['violation_date']; ?></td> 		   
+                        <td><?php echo $_SESSION['license_plate']; ?></td>   
+                        <td><?php echo $_SESSION['fine_amount']; ?></td>   
+                        <td><?php echo $_SESSION['fine_due_date']; ?></td>
                         <td><button type="submit" name="payment-btn">Pay</button></td>   
                         </tr>
                 </tbody>
