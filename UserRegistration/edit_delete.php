@@ -21,17 +21,17 @@ if(isset($_POST['edit-btn'])) {
 }
 
 if(isset($_POST['delete-btn'])) {
-    $violation_id = $_SESSION['violation_id'];
-    $delete = "DELETE FROM violation WHERE violation_id=?";
+    $ViolationID = $_SESSION['ViolationID'];
+    $delete = "DELETE FROM Violations WHERE ViolationID=?";
     $stmt=$conn->prepare($delete);
-    $stmt->bind_param('i', $violation_id);
+    $stmt->bind_param('i', $ViolationID);
     $stmt->execute();
     $_SESSION['message'] = "Ticket is deleted successfully.";
     $_SESSION['alert-class'] = "alert-success";
     header('location: index.php');
     exit();
 }
-
+\
 
 ?>
 <!DOCTYPE html>
@@ -99,13 +99,13 @@ if(isset($_POST['delete-btn'])) {
                 } ?>
                 <?php if(empty($hidden)) : ?>
                 <tbody> 
-                        <tr id="<?php echo $_SESSION['violation_id']; ?>">
-                        <td><?php echo $_SESSION['violation_number']; ?></td>
-                        <td><?php echo $_SESSION['violation_type']; ?></td>
-                        <td><?php echo $_SESSION['violation_date']; ?></td> 		   
-                        <td><?php echo $_SESSION['license_plate']; ?></td>   
-                        <td><?php echo $_SESSION['fine_amount']; ?></td>   
-                        <td><?php echo $_SESSION['fine_due_date']; ?></td>
+                        <tr id="<?php echo $_SESSION['ViolationID']; ?>">
+                        <td><?php echo $_SESSION['ViolationNumber']; ?></td>
+                        <td><?php echo $_SESSION['ViolationType']; ?></td>
+                        <td><?php echo $_SESSION['ViolationDate']; ?></td> 		   
+                        <td><?php echo $_SESSION['LicensePlateNumber']; ?></td>   
+                        <td><?php echo $_SESSION['FineAmount']; ?></td>   
+                        <td><?php echo $_SESSION['FineDueDate']; ?></td>
                         <td>
                             <button type="submit" name="edit-btn">Edit</button>
                             <button type="submit" name="delete-btn"  onclick="return confirm('Are you sure you want to delete this item?');"> Delete</button></td>   
