@@ -141,7 +141,7 @@ if (isset($_POST['register-btn'])) {
 
         if($stmt->execute()) {
             //login user
-            $Edit = 'visible';
+            $edit = 'visible';
             $EmployeeID = $conn->insert_id;
             $_SESSION['EmployeeID'] = $EmployeeID;
             $_SESSION['Username'] = $Username;
