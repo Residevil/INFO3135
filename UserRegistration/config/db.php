@@ -20,106 +20,107 @@ if(!$db_selected) {
 
     if ($conn->query($db) === TRUE) {
             // sql to create table.
-         $address= "CREATE TABLE Addresses (
-            AddressID INT(11) NOT NULL AUTO_INCREMENT,
-            StreetNumber INT(11),
-            StreetName VARCHAR(50) NOT NULL,
-            UnitNumber INT(11),
-            City VARCHAR(20) NOT NULL,
-            Province VARCHAR(20) NOT NULL,
-            PostalCode VARCHAR(11) NOT NULL,
-            PRIMARY KEY(AddressID)
+         $address= "CREATE TABLE addresses (
+            address_id INT(11) NOT NULL AUTO_INCREMENT,
+            street_number INT(11),
+            street_name VARCHAR(50) NOT NULL,
+            unit_number INT(11),
+            city VARCHAR(20) NOT NULL,
+            province VARCHAR(20) NOT NULL,
+            postal_code VARCHAR(11) NOT NULL,
+            PRIMARY KEY(address_id)
         )";
         $conn->query($address);
 
-        $employee_type = "CREATE TABLE EmployeeType (
-            EmployeeTypeID INT(11) NOT NULL,
-            Name VARCHAR(50) NOT NULL,
-            Description VARCHAR(255) NOT NULL,
-            PRIMARY KEY(EmployeeTypeID)
+        $employee_type = "CREATE TABLE employee_type (
+            employee_type_id INT(11) NOT NULL AUTO_INCREMENT,
+            name VARCHAR(50) NOT NULL,
+            description VARCHAR(255),
+            PRIMARY KEY(employee_type_id)
         )";
         $conn->query($employee_type)
 
-        $employee = "CREATE TABLE Employee (
-            EmployeeID INT(11) NOT NULL AUTO_INCREMENT,
-            Name VARCHAR(50) NOT NULL,
-            Username VARCHAR(11),
-            Email VARCHAR(255),
-            Password VARCHAR(255),
-            EmployeeTypeID INT(11),
-            AddressID INT(11),	
-            PRIMARY KEY(EmployeeID),
-            FOREIGN KEY(EmployeeTypeID) REFERENCES EmployeeType(EmployeeTypeID),
-            FOREIGN KEY(AddressID) REFERENCES Addresses(AddressID)
+        $employee = "CREATE TABLE employee (
+            employee_id INT(11) NOT NULL AUTO_INCREMENT,
+            name VARCHAR(50) NOT NULL,
+            username VARCHAR(11),
+            email VARCHAR(255),
+            password VARCHAR(255),
+            employeey_type_id INT(11),
+            address_id INT(11),	
+            PRIMARY KEY(employee_id),
+            FOREIGN KEY(employee_type_id) REFERENCES employee_type(employee_type_id),
+            FOREIGN KEY(address_id) REFERENCES addresses(address_id)
         )";
         $conn->query($employee);
 
-        $violator = "CREATE TABLE Violators (
-            ViolatorID INT(11) NOT NULL AUTO_INCREMENT,
-            DriversLicenseNumber VARCHAR(50) NOT NULL,
-            Name VARCHAR(50) NOT NULL,
-            AddressID INT(11),
-            PRIMARY KEY(ViolatorID),
-            FOREIGN KEY(AddressID) REFERENCES Addresses(AddressID)
+        $violator = "CREATE TABLE violator (
+            violator_id INT(11) NOT NULL AUTO_INCREMENT,
+            driver_license VARCHAR(50) NOT NULL,
+            name VARCHAR(50) NOT NULL,
+            address_id INT(11),
+            PRIMARY KEY(violator_id),
+            FOREIGN KEY(address_id) REFERENCES addresses(address_id)
         )";
         $conn->query($violator);
 
-        $vehicle_type = "CREATE TABLE VehicleType (
-            VehicleTypeID INT(11) NOT NULL,
-            Name VARCHAR(50) NOT NULL,
-            Description VARCHAR(255) NOT NULL,
-            PRIMARY KEY(VehicleTypeID)
+        $vehicle_type = "CREATE TABLE vehicle_type (
+            vehicle_type_id INT(11) NOT NULL AUTO_INCREMENT,
+            name VARCHAR(50) NOT NULL,
+            description VARCHAR(255),
+            PRIMARY KEY(vehicle_type_id)
         )";
         $conn->query($vehicle_type);
 
-        $manufacturer = "CREATE TABLE Manufacturers (
-            ManufacturerCode INT(50) NOT NULL,
-            ManufacturerName VARCHAR(50) NOT NULL,
-            PRIMARY KEY(ManufacturerCode)
+        $manufacturer = "CREATE TABLE vehicle_manufacturers (
+            manufacturer_code INT(11) NOT NULL AUTO_INCREMENT,
+            name VARCHAR(50) NOT NULL,
+            PRIMARY KEY(manufacturer_code)
         )";
         $conn->query($manufacturer);
 
-        $vehicle = "CREATE TABLE Vehicles (
-            LicensePlateNumber VARCHAR(11) NOT NULL,
-            Name VARCHAR(20) NOT NULL,
-            Colour VARCHAR(20) NOT NULL,
-            VehicleTypeID INT(11),
-            ManufacturerCode INT(50),
-            PRIMARY KEY(LicensePlateNumber),
-            FOREIGN KEY(VehicleTypeID) REFERENCES VehicleType(VehicleTypeID),
-            FOREIGN KEY(ManufacturerCode) REFERENCES Manufacturers(ManufacturerCode)
+        $vehicle = "CREATE TABLE vehicle (
+            license_plate VARCHAR(11) NOT NULL,
+            name VARCHAR(20) NOT NULL,
+            colour VARCHAR(20) NOT NULL,
+            vehicle_type_id INT(11),
+            manufacturer_code INT(50),
+            PRIMARY KEY(license_plate),
+            FOREIGN KEY(vehicle_type_id) REFERENCES vehicle_type(vehicle_type_id),
+            FOREIGN KEY(manufacturer_code) REFERENCES vehicle_manufacturers(manufacturer_code)
         )";
         $conn->query($vehicle);
 
-        $violation_type = "CREATE TABLE ViolationType (
-            ViolationTypeID INT(11) NOT NULL,
-            Name VARCHAR(50) NOT NULL,
-            Description VARCHAR(255)NOT NULL,
-            PRIMARY KEY(ViolationTypeID)
+        $violation_type = "CREATE TABLE violation_type (
+            violation_type_id INT(11) NOT NULL AUTO_INCREMENT,
+            name VARCHAR(50) NOT NULL,
+            description VARCHAR(255),
+            PRIMARY KEY(violation_type_id)
         )";
         $conn->query($violation_type);
+        $conn->query("INSERT INTO violation_type ('Red Light', 'Pass red light')");
 
-        $violation = "CREATE TABLE Violations (
-            ViolationID INT(11) NOT NULL AUTO_INCREMENT,
-            ViolationNumber INT(50) NOT NULL,
-            ViolationDate VARCHAR NOT NULL,
-            FineAmount VARCHAR(11) NOT NULL,
-            FineDueDate VARCHAR NOT NULL,
-            ViolatorID INT(11),
-            ViolationTypeID INT(11),
-            LicensePlateNumber VARCHAR(11),
-            PRIMARY KEY(ViolationID),
-            FOREIGN KEY(ViolationTypeID) REFERENCES ViolationType(ViolationTypeID),
-            FOREIGN KEY(ViolatorID) REFERENCES Violators(ViolatorID),
-            FOREIGN KEY(LicensePlateNumber) REFERENCES Vehicles(LicensePlateNumber)
+        $violation = "CREATE TABLE violation (
+            violation_id INT(11) NOT NULL AUTO_INCREMENT,
+            violation_number INT(50) NOT NULL,
+            violation_date VARCHAR NOT NULL,
+            fine_Amount VARCHAR(11) NOT NULL,
+            fine_due_date VARCHAR NOT NULL,
+            violator_id INT(11),
+            violation_type_id INT(11),
+            license_plate VARCHAR(11),
+            PRIMARY KEY(violation_id),
+            FOREIGN KEY(violation_type_id) REFERENCES violation_type(violation_type_id),
+            FOREIGN KEY(violator_id) REFERENCES violator(violator_id),
+            FOREIGN KEY(license_plate) REFERENCES vehicle(license_plate)
         )";
         $conn->query($violation);
 
-        $payment_method = "CREATE TABLE PaymentMethod (
-            PaymentMethodCode INT(11) NOT NULL,
-            Name VARCHAR(50) NOT NULL,
-            Description VARCHAR(255) NOT NULL,
-            PRIMARY KEY(PaymentMethodCode)
+        $payment_method = "CREATE TABLE payment_methods (
+            payment_method_code INT(11) NOT NULL AUTO_INCREMENT,
+            name VARCHAR(50) NOT NULL,
+            description VARCHAR(255),
+            PRIMARY KEY(payment_method_code)
         )";
         $conn->query($payment_method);
 
