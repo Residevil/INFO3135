@@ -31,11 +31,11 @@ require_once 'Controllers/authController.php';
                 
                 <div class="form-group">
                     <label for="username">Username or Email:</label>
-                    <input type="text" name="Username" value="<?php echo $Username; ?>" class="form-control form-control-lg" required>
+                    <input type="text" name="username" value="<?php echo $username; ?>" class="form-control form-control-lg" required>
                 </div>
                 <div class="form-group">
                     <label for="password">Password:</label>
-                    <input type="password" name="Password" class="form-control form-control-lg" required>
+                    <input type="password" name="password" class="form-control form-control-lg" required>
                 </div>
                 <div>
                     <button type="submit" name="login-btn" class="btn btn-primary btn-block btn-lg">Login</button>
