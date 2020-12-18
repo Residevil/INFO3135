@@ -21,17 +21,17 @@ if(isset($_POST['edit-btn'])) {
 }
 
 if(isset($_POST['delete-btn'])) {
-    $ViolationID = $_SESSION['ViolationID'];
-    $delete = "DELETE FROM Violations WHERE ViolationID=?";
+    $violation_id = $_SESSION['violation_id'];
+    $delete = "DELETE FROM violation WHERE violation_id=?";
     $stmt=$conn->prepare($delete);
-    $stmt->bind_param('i', $ViolationID);
+    $stmt->bind_param('i', $violation_id);
     $stmt->execute();
     $_SESSION['message'] = "Ticket is deleted successfully.";
     $_SESSION['alert-class'] = "alert-success";
     header('location: index.php');
     exit();
 }
-\
+
 
 ?>
 <!DOCTYPE html>
@@ -43,7 +43,7 @@ if(isset($_POST['delete-btn'])) {
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <script type="text/javascript" src="dist/jquery.tabledit.js"></script>
-    <title>Homepage</title>
+    <title>edit_delete violation</title>
 </head>
 <body>
     <div>
@@ -97,18 +97,18 @@ if(isset($_POST['delete-btn'])) {
                 <?php if(!empty($table)) {
                     echo $output;
                 } ?>
-                <?php if(empty($hidden)) : ?>
+                <?php if(empty($table)) : ?>
                 <tbody> 
-                        <tr id="<?php echo $_SESSION['ViolationID']; ?>">
-                        <td><?php echo $_SESSION['ViolationNumber']; ?></td>
-                        <td><?php echo $_SESSION['ViolationType']; ?></td>
-                        <td><?php echo $_SESSION['ViolationDate']; ?></td> 		   
-                        <td><?php echo $_SESSION['LicensePlateNumber']; ?></td>   
-                        <td><?php echo $_SESSION['FineAmount']; ?></td>   
-                        <td><?php echo $_SESSION['FineDueDate']; ?></td>
+                        <tr id="<?php echo $_SESSION['violation_id']; ?>">
+                        <td><?php echo $_SESSION['violation_number']; ?></td>
+                        <td><?php echo $_SESSION['violation_type']; ?></td>
+                        <td><?php echo $_SESSION['violation_date']; ?></td> 		   
+                        <td><?php echo $_SESSION['license_plate']; ?></td>   
+                        <td><?php echo $_SESSION['fine_amount']; ?></td>   
+                        <td><?php echo $_SESSION['fine_due_date']; ?></td>
                         <td>
                             <button type="submit" name="edit-btn">Edit</button>
-                            <button type="submit" name="delete-btn"  onclick="return confirm('Are you sure you want to delete this item?');"> Delete</button></td>   
+                            <button type="submit" name="delete-btn"  onclick="return confirm('Are you sure you want to delete this ticket?');"> Delete</button></td>   
                         </td>   
                         </tr>
                 </tbody>
