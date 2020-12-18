@@ -11,40 +11,39 @@ define('DB_USER', 'root');
 define('DB_PASS', '');
 define('DB_NAME', 'INFO3135');
 
-$Name = "";
-$Username = "";
-$Email = "";
+$name = "";
+$username = "";
+$email = "";
 $errors = array();
+$output = '';
+$table = 'hidden';
+$edit = 'hidden';
+$violation_id = '';
+$violation_number = '';
+$violation_type_id = '';
+$violation_type = '';
+$vt = '';
+$violation_date = '';
+$violator = '';
+$violator_id = '';
+$driver_license = '';
+$license_plate = '';
+$vehicle_name = '';
+$vehicle_colour = '';
+$vehicle_type = '';
+$vehicle_type_id = '';
+$manufacturer_name = '';
+$manufacturer_code = '';
+$fine_amount = '';
+$fine_due_date = '';
+
+$address='';
+$city='';
+$province = '';
+$postalcode='';
 
 $log = '';
-$output = '';
-$hidden = 'hidden';
-$edit = 'hidden';
 
-$ViolationID = '';
-$ViolationNumber = '';
-$ViolationTypeID = '';
-$ViolationType = '';
-$vt = '';
-$ViolationDate = '';
-$Violator = '';
-$ViolatorID = '';
-$DriverLicenseNumber = '';
-$LicensePlateNumber = '';
-$VehicleName = '';
-$VehicleColour = '';
-$VehicleType = '';
-$VehicleTypeID = '';
-$ManufacturerName = '';
-$ManufacturerCode = '';
-$FineAmount = '';
-$FineDueDate = '';
-
-$Address='';
-$City='';
-$Province = '';
-$Postalcode='';
-
-
+$output='';
 
 ?>
