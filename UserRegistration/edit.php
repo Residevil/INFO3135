@@ -5,24 +5,24 @@ require_once 'config/db.php';
 
 
 if(isset($_POST['edit'])) {
-    $ViolationID = $_SESSION['ViolationID'];
-    $ViolationNumber = $_POST['ViolationNumber'];
-    $ViolationType = $_POST['ViolationType'];
-    $ViolationDate = $_POST['ViolationDate'];
-    $Violator = $_POST['Violator'];
-    $LicensePlateNumber = $_POST['LicensePlateNumber'];
-    $FineAmount = $_POST['FineAmount'];
-    $FineDueDate = $_POST['FineDueDate'];
+    $violation_id = $_SESSION['violation_id'];
+    $violation_number = $_POST['violation_number'];
+    $violation_type = $_POST['violation_type'];
+    $violation_date = $_POST['violation_date'];
+    $violator = $_POST['violator'];
+    $license_plate = $_POST['license_plate'];
+    $fine_amount = $_POST['fine_amount'];
+    $fine_due_date = $_POST['fine_due_date'];
     
 
-    $editTicket = "UPDATE Violations SET 
-            ViolationNumber=?,
-            ViolationDate=?,      
-            FineAmount=?,      
-            FineDueDate=?          
-            WHERE ViolationID = ?";
+    $editTicket = "UPDATE violation SET 
+            violation_number=?,
+            violation_date=?,      
+            fine_amount=?,      
+            fine_due_date=?          
+            WHERE violation_id = ?";
     $stmt = $conn->prepare($editTicket);
-    $stmt->bind_param('ssssi', $ViolationNumber, $ViolationDate, $FineAmount, $FineDueDate, $ViolationID);
+    $stmt->bind_param('ssssi', $violation_number, $violation_date, $fine_amount, $fine_due_date, $violation_id);
     $stmt->execute();
     $_SESSION['message'] = "Ticket is updated successfully.";
     $_SESSION['alert-class'] = "alert-success";        
@@ -58,39 +58,39 @@ if(isset($_POST['edit'])) {
                 <?php endif; ?>
                 
                 <div class="form-group">
-                    <label for="ViolationNumber">Violation Number: </label>
-                    <input type="text" name="ViolationNumber" value="<?php echo $_SESSION['ViolationNumber']; ?>" class="form-control form-control-lg" required>
+                    <label for="violation_number">Violation Number: </label>
+                    <input type="text" name="violation_number" value="<?php echo $_SESSION['violation_number']; ?>" class="form-control form-control-lg" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="ViolationType">Violation type: </label>
-                    <select name="ViolationType">
+                    <label for="violation_type">Violation type: </label>
+                    <select name="violation_type">
                         <option value=""></option>
                         <option value="Red Light"> Red Light </option>
                     </select>
                 </div>
 
                 <div class="form-group">
-                    <label for="ViolationDate">Violation_date: </label>
-                    <input type="text" name="ViolationDate" placeholder="YYYY-MM-DD" value="<?php echo $_SESSION['ViolationDate']; ?>" class="form-control form-control-lg" required>
+                    <label for="violation_date">Violation_date: </label>
+                    <input type="text" name="violation_date" placeholder="YYYY-MM-DD" value="<?php echo $_SESSION['violation_date']; ?>" class="form-control form-control-lg" required>
                 </div>
                 <div class="form-group">
-                    <label for="Violator">Violator: </label>
-                    <input type="text" name="Violator" value="<?php echo $_SESSION['Violator']; ?>" placeholder= ""class="form-control form-control-lg" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="LicensePlateNumber">License Plate Number: </label>
-                    <input type="text" name="LicensePlateNumber" placeholder="XXX-YYY" value=<?php echo $_SESSION['LicensePlateNumber'] ?> class="form-control form-control-lg" required>
+                    <label for="violator">violator: </label>
+                    <input type="text" name="violator" value="<?php echo $_SESSION['violator']; ?>" placeholder= ""class="form-control form-control-lg" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="FineAmount">Fine Amount: </label>
-                    <input type="text" name="FineAmount" placeholder="e.g. 123.45" value="<?php echo $_SESSION['FineAmount']; ?>" class="form-control form-control-lg" required>
+                    <label for="license_plate">License Plate Number: </label>
+                    <input type="text" name="license_plate" placeholder="XXX-YYY" value=<?php echo $_SESSION['license_plate'] ?> class="form-control form-control-lg" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="fine_amount">Fine Amount: </label>
+                    <input type="text" name="fine_amount" placeholder="e.g. 123.45" value="<?php echo $_SESSION['fine_amount']; ?>" class="form-control form-control-lg" required>
                 </div>
                 <div class="form-group">
-                    <label for="FineDueDate">Fine Due Date:</label>
-                    <input type="text" name="FineDueDate" placeholder="YYYY-MM-DD" value="<?php echo $_SESSION['FineDueDate']; ?>" class="form-control form-control-lg" required>
+                    <label for="fine_due_date">Fine Due Date:</label>
+                    <input type="text" name="fine_due_date" placeholder="YYYY-MM-DD" value="<?php echo $_SESSION['fine_due_date']; ?>" class="form-control form-control-lg" required>
                 </div>
                 <div>
                     <button type="submit" name="edit" class="btn btn-primary btn-lg">Edit Ticket</button>
